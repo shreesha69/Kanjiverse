@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
+
 import { LessonCard } from './LessonCard';
 import { lessons } from '../data/kanjiData';
 import { useState } from 'react';

@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
+
 import { TrendingUp, Award, Target } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress as ProgressBar } from './ui/progress';

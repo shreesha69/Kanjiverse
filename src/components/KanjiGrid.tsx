@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
+
 import { ArrowLeft, Check } from 'lucide-react';
 import { Button } from './ui/button';
 import { LessonData } from '../data/kanjiData';

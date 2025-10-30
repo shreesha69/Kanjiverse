@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
+
 import { Star, Check, BookOpen } from 'lucide-react';
 import { Button } from './ui/button';
 import { kanjiDatabase } from '../data/kanjiData';
