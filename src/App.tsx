@@ -18,7 +18,8 @@ export default function App() {
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
-    window.scrollTo(0, 0);
+    // ✅ Smooth scroll reset (helps mobile browsers not "pop out")
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   };
 
   const handleViewKanji = (kanji: string, lessonId?: number) => {
@@ -27,6 +28,8 @@ export default function App() {
       setSelectedLessonId(lessonId);
     }
     setCurrentPage('kanji-detail');
+    // ✅ Reset scroll when viewing new kanji
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   };
 
   const handleMarkAsLearned = (kanji: string) => {
@@ -59,7 +62,14 @@ export default function App() {
       
       <main className="flex-1">
         {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
-        {currentPage === 'lessons' && <Lessons onViewKanji={handleViewKanji} learnedKanji={learnedKanji} />}
+
+        {currentPage === 'lessons' && (
+          <Lessons 
+            onViewKanji={handleViewKanji} 
+            learnedKanji={learnedKanji} 
+          />
+        )}
+
         {currentPage === 'kanji-detail' && selectedKanji && (
           <KanjiDetail 
             kanji={selectedKanji}
@@ -72,8 +82,20 @@ export default function App() {
             onBackToLessons={() => handleNavigate('lessons')}
           />
         )}
-        {currentPage === 'progress' && <Progress learnedKanji={learnedKanji} onNavigate={handleNavigate} />}
-        {currentPage === 'quiz' && <Quiz learnedKanji={learnedKanji} onMarkAsLearned={handleMarkAsLearned} />}
+
+        {currentPage === 'progress' && (
+          <Progress 
+            learnedKanji={learnedKanji} 
+            onNavigate={handleNavigate} 
+          />
+        )}
+
+        {currentPage === 'quiz' && (
+          <Quiz 
+            learnedKanji={learnedKanji} 
+            onMarkAsLearned={handleMarkAsLearned} 
+          />
+        )}
       </main>
 
       <Footer onNavigate={handleNavigate} />
