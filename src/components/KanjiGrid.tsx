@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-
+import { motion } from "framer-motion";
 import { ArrowLeft, Check } from 'lucide-react';
 import { Button } from './ui/button';
 import { LessonData } from '../data/kanjiData';
@@ -7,7 +6,7 @@ import { LessonData } from '../data/kanjiData';
 interface KanjiGridProps {
   lesson: LessonData;
   learnedKanji: Set<string>;
-  onViewKanji: (kanji: string) => void;
+  onViewKanji: (kanji: string, lessonId?: number) => void;
   onBack: () => void;
 }
 
@@ -56,7 +55,7 @@ export function KanjiGrid({ lesson, learnedKanji, onViewKanji, onBack }: KanjiGr
                 transition={{ delay: index * 0.03 }}
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => onViewKanji(kanji)}
+                onClick={() => onViewKanji(kanji, lesson.id)}
                 className={`relative aspect-square rounded-2xl p-6 flex items-center justify-center shadow-lg transition-all ${
                   isLearned
                     ? 'bg-gradient-to-br from-[#b6e2d3] to-[#b6e2d3]/80 border-2 border-[#b6e2d3]'

@@ -1,21 +1,25 @@
-import { motion } from 'framer-motion';
-
-import { LessonCard } from './LessonCard';
-import { lessons } from '../data/kanjiData';
-import { useState } from 'react';
-import { KanjiGrid } from './KanjiGrid';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { motion } from "framer-motion";
+import { LessonCard } from "./LessonCard";
+import { lessons } from "../data/kanjiData";
+import { useState } from "react";
+import { KanjiGrid } from "./KanjiGrid";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 interface LessonsProps {
-  onViewKanji: (kanji: string) => void;
+  onViewKanji: (kanji: string, lessonId?: number) => void;
   learnedKanji: Set<string>;
 }
 
-export function Lessons({ onViewKanji, learnedKanji }: LessonsProps) {
-  const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
+export function Lessons({
+  onViewKanji,
+  learnedKanji,
+}: LessonsProps) {
+  const [selectedLesson, setSelectedLesson] = useState<
+    number | null
+  >(null);
 
   if (selectedLesson !== null) {
-    const lesson = lessons.find(l => l.id === selectedLesson);
+    const lesson = lessons.find((l) => l.id === selectedLesson);
     if (lesson) {
       return (
         <KanjiGrid
@@ -56,8 +60,10 @@ export function Lessons({ onViewKanji, learnedKanji }: LessonsProps) {
         {/* Lessons Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {lessons.map((lesson, index) => {
-            const learnedCount = lesson.kanji.filter(k => learnedKanji.has(k)).length;
-            
+            const learnedCount = lesson.kanji.filter((k) =>
+              learnedKanji.has(k),
+            ).length;
+
             return (
               <motion.div
                 key={lesson.id}
@@ -71,7 +77,9 @@ export function Lessons({ onViewKanji, learnedKanji }: LessonsProps) {
                   kanjiPreview={lesson.kanji}
                   learnedCount={learnedCount}
                   totalCount={lesson.kanji.length}
-                  onViewLesson={() => setSelectedLesson(lesson.id)}
+                  onViewLesson={() =>
+                    setSelectedLesson(lesson.id)
+                  }
                 />
               </motion.div>
             );

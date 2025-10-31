@@ -1,23 +1,29 @@
-import { motion } from 'framer-motion';
-
-import { Star, Check, BookOpen } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Check, BookOpen, ArrowLeft, ArrowRight, List } from 'lucide-react';
 import { Button } from './ui/button';
-import { kanjiDatabase } from '../data/kanjiData';
+import { kanjiDatabase, lessons } from '../data/kanjiData';
+import { useEffect, useState } from 'react';
 
 interface KanjiDetailProps {
   kanji: string;
+  lessonId: number | null;
   isLearned: boolean;
   isFavorite: boolean;
   onMarkAsLearned: (kanji: string) => void;
   onToggleFavorite: (kanji: string) => void;
+  onNavigateToKanji: (kanji: string, lessonId?: number) => void;
+  onBackToLessons: () => void;
 }
 
 export function KanjiDetail({
   kanji,
+  lessonId,
   isLearned,
   isFavorite,
   onMarkAsLearned,
-  onToggleFavorite
+  onToggleFavorite,
+  onNavigateToKanji,
+  onBackToLessons
 }: KanjiDetailProps) {
   const kanjiData = kanjiDatabase[kanji];
 
@@ -30,9 +36,134 @@ export function KanjiDetail({
     examples: []
   };
 
+  // Find current lesson and kanji index
+  const currentLesson = lessonId ? lessons.find(l => l.id === lessonId) : null;
+  const currentIndex = currentLesson ? currentLesson.kanji.indexOf(kanji) : -1;
+  const hasPrevious = currentLesson && currentIndex > 0;
+  const hasNext = currentLesson && currentIndex < currentLesson.kanji.length - 1;
+  const nextLesson = currentLesson && !hasNext ? lessons.find(l => l.id === currentLesson.id + 1) : null;
+
+  // State for showing new lesson banner
+  const [showLessonBanner, setShowLessonBanner] = useState(false);
+  const [previousLessonId, setPreviousLessonId] = useState<number | null>(lessonId);
+
+  const handlePrevious = () => {
+    if (currentLesson && hasPrevious) {
+      onNavigateToKanji(currentLesson.kanji[currentIndex - 1], lessonId!);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentLesson && hasNext) {
+      onNavigateToKanji(currentLesson.kanji[currentIndex + 1], lessonId!);
+    } else if (nextLesson) {
+      // Show banner when moving to next lesson
+      setShowLessonBanner(true);
+      setTimeout(() => setShowLessonBanner(false), 3000);
+      onNavigateToKanji(nextLesson.kanji[0], nextLesson.id);
+    }
+  };
+
+  // Detect lesson change
+  useEffect(() => {
+    if (lessonId !== null && previousLessonId !== null && lessonId !== previousLessonId) {
+      setShowLessonBanner(true);
+      setTimeout(() => setShowLessonBanner(false), 3000);
+    }
+    setPreviousLessonId(lessonId);
+  }, [lessonId]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' && hasPrevious) {
+        handlePrevious();
+      } else if (e.key === 'ArrowRight' && (hasNext || nextLesson)) {
+        handleNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [hasPrevious, hasNext, nextLesson, currentIndex]);
+
   return (
     <div className="py-12 px-4">
       <div className="max-w-4xl mx-auto">
+        {/* New Lesson Banner */}
+        <AnimatePresence>
+          {showLessonBanner && currentLesson && (
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-[#f9c5d1] to-[#b6e2d3] text-white px-8 py-4 rounded-full shadow-2xl"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🎉</span>
+                <div>
+                  <div className="font-semibold">Lesson {currentLesson.id}</div>
+                  <div className="text-sm opacity-90">{currentLesson.title}</div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Navigation Bar */}
+        <div className="flex items-center justify-between mb-6">
+          <Button
+            onClick={onBackToLessons}
+            variant="ghost"
+            className="hover:bg-[#f9c5d1]/10"
+          >
+            <List className="mr-2" size={20} />
+            Back to Lessons
+          </Button>
+
+          {currentLesson && (
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={handlePrevious}
+                disabled={!hasPrevious}
+                variant="outline"
+                className="rounded-full"
+              >
+                <ArrowLeft size={20} className="mr-1" />
+                Previous
+              </Button>
+              
+              <div className="text-sm text-gray-600 px-3">
+                {currentIndex + 1} / {currentLesson.kanji.length}
+              </div>
+
+              <Button
+                onClick={handleNext}
+                disabled={!hasNext && !nextLesson}
+                variant="outline"
+                className="rounded-full"
+              >
+                {hasNext ? (
+                  <>
+                    Next
+                    <ArrowRight size={20} className="ml-1" />
+                  </>
+                ) : nextLesson ? (
+                  <span className="flex items-center gap-1">
+                    Next: Lesson {nextLesson.id}
+                    <ArrowRight size={20} className="ml-1" />
+                  </span>
+                ) : (
+                  <>
+                    Next
+                    <ArrowRight size={20} className="ml-1" />
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+        </div>
+
         {/* Main Kanji Display */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

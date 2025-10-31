@@ -12,6 +12,7 @@ type Page = 'home' | 'lessons' | 'kanji-detail' | 'progress' | 'quiz';
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedKanji, setSelectedKanji] = useState<string | null>(null);
+  const [selectedLessonId, setSelectedLessonId] = useState<number | null>(null);
   const [learnedKanji, setLearnedKanji] = useState<Set<string>>(new Set());
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
@@ -20,8 +21,11 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  const handleViewKanji = (kanji: string) => {
+  const handleViewKanji = (kanji: string, lessonId?: number) => {
     setSelectedKanji(kanji);
+    if (lessonId) {
+      setSelectedLessonId(lessonId);
+    }
     setCurrentPage('kanji-detail');
   };
 
@@ -58,14 +62,17 @@ export default function App() {
         {currentPage === 'lessons' && <Lessons onViewKanji={handleViewKanji} learnedKanji={learnedKanji} />}
         {currentPage === 'kanji-detail' && selectedKanji && (
           <KanjiDetail 
-            kanji={selectedKanji} 
+            kanji={selectedKanji}
+            lessonId={selectedLessonId}
             isLearned={learnedKanji.has(selectedKanji)}
             isFavorite={favorites.has(selectedKanji)}
             onMarkAsLearned={handleMarkAsLearned}
             onToggleFavorite={handleToggleFavorite}
+            onNavigateToKanji={handleViewKanji}
+            onBackToLessons={() => handleNavigate('lessons')}
           />
         )}
-        {currentPage === 'progress' && <Progress learnedKanji={learnedKanji} />}
+        {currentPage === 'progress' && <Progress learnedKanji={learnedKanji} onNavigate={handleNavigate} />}
         {currentPage === 'quiz' && <Quiz learnedKanji={learnedKanji} onMarkAsLearned={handleMarkAsLearned} />}
       </main>
 

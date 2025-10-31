@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-
+import { motion } from "framer-motion";
 import { TrendingUp, Award, Target } from 'lucide-react';
 import { Button } from './ui/button';
 import { Progress as ProgressBar } from './ui/progress';
@@ -8,9 +7,10 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface ProgressProps {
   learnedKanji: Set<string>;
+  onNavigate?: (page: 'lessons' | 'quiz') => void;
 }
 
-export function Progress({ learnedKanji }: ProgressProps) {
+export function Progress({ learnedKanji, onNavigate }: ProgressProps) {
   const totalKanji = allKanji.length;
   const learnedCount = learnedKanji.size;
   const progressPercentage = (learnedCount / totalKanji) * 100;
@@ -163,7 +163,10 @@ export function Progress({ learnedKanji }: ProgressProps) {
 
         {/* Action Button */}
         <div className="text-center">
-          <Button className="bg-[#f9c5d1] hover:bg-[#f9c5d1]/90 text-white px-8 py-6 rounded-full">
+          <Button 
+            onClick={() => onNavigate?.('lessons')}
+            className="bg-[#f9c5d1] hover:bg-[#f9c5d1]/90 text-white px-8 py-6 rounded-full"
+          >
             Continue Learning
           </Button>
         </div>
