@@ -1,4 +1,4 @@
-# 🚀 Deployment Guide - Kanji Ladder
+# 🚀 Deployment Guide - Kanjiverse
 
 ## Option 1: GitHub + Vercel (Recommended - FREE!)
 
@@ -11,7 +11,7 @@
 
 #### B. Create New Repository
 1. Click the **"+"** button (top right) → "New repository"
-2. Repository name: `kanji-ladder` (or any name you like)
+2. Repository name: `kanjiverse` (or any name you like)
 3. Description: "JLPT N5 Japanese Learning App"
 4. Choose **Public** (free hosting requires public repos)
 5. **DON'T** check "Add README" (we already have one)
@@ -30,9 +30,9 @@
 # In your project folder, run these commands:
 git init
 git add .
-git commit -m "Initial commit - Kanji Ladder app"
+git commit -m "Initial commit - Kanjiverse app"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/kanji-ladder.git
+git remote add origin https://github.com/YOUR_USERNAME/kanjiverse.git
 git push -u origin main
 ```
 
@@ -48,7 +48,7 @@ git push -u origin main
 
 #### B. Import Your Project
 1. On Vercel dashboard, click **"Add New..."** → **"Project"**
-2. Find your `kanji-ladder` repository
+2. Find your `kanjiverse` repository
 3. Click **"Import"**
 
 #### C. Configure & Deploy
@@ -66,8 +66,8 @@ git push -u origin main
 ### Step 3: Get Your Free Domain
 
 After deployment, you'll get a FREE domain like:
-- `kanji-ladder.vercel.app`
-- `kanji-ladder-xyz123.vercel.app`
+- `kanjiverse.vercel.app`
+- `kanjiverse-xyz123.vercel.app`
 
 #### Optional: Customize Your Free Domain
 1. In Vercel, go to your project
@@ -76,7 +76,7 @@ After deployment, you'll get a FREE domain like:
 4. Example: Change to `jlpt-n5-kanji.vercel.app`
 
 #### Optional: Use Custom Domain (Paid)
-If you want your own domain like `kanjiladder.com`:
+If you want your own domain like `kanjiverse.com`:
 1. Buy domain from Namecheap, GoDaddy, etc. (~$10-15/year)
 2. In Vercel: **Settings** → **Domains** → **Add**
 3. Enter your domain name
@@ -91,7 +91,7 @@ If you want your own domain like `kanjiladder.com`:
 1. Go to https://netlify.com
 2. Click **"Sign up"** → **"GitHub"**
 3. Click **"Add new site"** → **"Import an existing project"**
-4. Choose **GitHub** → Select your `kanji-ladder` repo
+4. Choose **GitHub** → Select your `kanjiverse` repo
 5. Build settings:
    - Build command: `npm run build`
    - Publish directory: `dist`
@@ -106,7 +106,7 @@ You can customize it in **Site settings** → **Domain management**
 ## 📱 Share Your App!
 
 Once deployed, you can share your live link:
-- `https://kanji-ladder.vercel.app`
+- `https://kanjiverse.vercel.app`
 - Or your custom domain
 
 Anyone can access it from anywhere! 🌍

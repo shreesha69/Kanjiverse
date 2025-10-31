@@ -21,6 +21,7 @@ export function Footer({ onNavigate }: FooterProps) {
         <span className="text-3xl text-[#f9c5d1] mt-2">🌸</span>
         <span className="text-4xl text-[#f9c5d1]">🌸</span>
       </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <div className="flex flex-col items-center gap-4">
           {/* Links */}
@@ -52,7 +53,7 @@ export function Footer({ onNavigate }: FooterProps) {
 
           {/* Copyright */}
           <p className="text-gray-500 text-center">
-            Made with dedication for JLPT N5 learners | © Kanji Ladder 2025
+            Made with dedication for JLPT N5 learners | © <strong>Kanjiverse 2025</strong>
           </p>
         </div>
       </div>

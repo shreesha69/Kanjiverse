@@ -39,7 +39,7 @@ export function Lessons({
         <ImageWithFallback
           src="https://images.unsplash.com/photo-1701738504681-24dc50595e94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqYXBhbmVzZSUyMGxhbmRzY2FwZSUyMHBlYWNlZnVsfGVufDF8fHx8MTc2MTY3MjgwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
           alt="Japanese Landscape"
-          className="w-full h-full object-cover opacity-5"
+          className="w-full h-full object-cover opacity-20"
         />
       </div>
       <div className="max-w-7xl mx-auto relative z-10">
@@ -74,6 +74,7 @@ export function Lessons({
                 <LessonCard
                   lessonNumber={lesson.id}
                   title={lesson.title}
+                  titleEn={lesson.titleEn}
                   kanjiPreview={lesson.kanji}
                   learnedCount={learnedCount}
                   totalCount={lesson.kanji.length}

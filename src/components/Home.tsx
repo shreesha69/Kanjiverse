@@ -10,29 +10,23 @@ interface HomeProps {
 }
 
 export function Home({ onNavigate }: HomeProps) {
-  // Calculate days until JLPT exam (first Sunday of December 2025)
   const calculateDaysUntilJLPT = () => {
     const today = new Date();
     const currentYear = today.getFullYear();
-    
-    // JLPT is typically held on the first Sunday of December
-    const december = new Date(currentYear, 11, 1); // December 1st
+
+    const december = new Date(currentYear, 11, 1);
     const firstSunday = new Date(december);
-    
-    // Find first Sunday
+
     while (firstSunday.getDay() !== 0) {
       firstSunday.setDate(firstSunday.getDate() + 1);
     }
-    
-    // If the exam date has passed this year, calculate for next year
+
     if (today > firstSunday) {
       firstSunday.setFullYear(currentYear + 1);
     }
-    
+
     const diffTime = firstSunday.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    return diffDays;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
   const daysLeft = calculateDaysUntilJLPT();
@@ -65,11 +59,11 @@ export function Home({ onNavigate }: HomeProps) {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb3VudCUyMGZ1amklMjBqYXBhbnxlbnwxfHx8fDE3NjE2MTcwNTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
             alt="Mount Fuji"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -141,14 +135,13 @@ export function Home({ onNavigate }: HomeProps) {
 
       {/* Featured Section */}
       <section className="relative py-16 px-4 overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1649227770395-610fe3d1e3ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGVycnklMjBibG9zc29tJTIwc2FrdXJhfGVufDF8fHx8MTc2MTY3MjgwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="https://images.unsplash.com/photo-1649227770395-610fe3d1e3ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
             alt="Cherry Blossoms"
             className="w-full h-full object-cover opacity-25"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-[#fce4ec]/30 to-white/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-[#fce4ec]/40 to-white/80"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">

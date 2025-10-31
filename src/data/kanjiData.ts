@@ -13,6 +13,7 @@ export interface KanjiData {
 export interface LessonData {
   id: number;
   title: string;
+  titleEn: string;
   kanji: string[];
 }
 
@@ -20,56 +21,67 @@ export const lessons: LessonData[] = [
   {
     id: 1,
     title: '絵からできた漢字',
+    titleEn: 'Pictographic Kanji',
     kanji: ['山', '川', '田', '日', '月', '火', '水', '木', '金', '土']
   },
   {
     id: 2,
     title: '数字①',
+    titleEn: 'Numbers (Part 1)',
     kanji: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
   },
   {
     id: 3,
     title: '数字と時間',
+    titleEn: 'Numbers & Time',
     kanji: ['百', '千', '万', '円', '年', '上', '下', '中', '半', '分']
   },
   {
     id: 4,
     title: '人と体',
+    titleEn: 'People & Body',
     kanji: ['人', '子', '女', '男', '目', '口', '耳', '手', '足', '力']
   },
   {
     id: 5,
     title: '家族と学習',
+    titleEn: 'Family & Learning',
     kanji: ['父', '母', '先', '生', '学', '校', '友', '本', '毎', '何']
   },
   {
     id: 6,
     title: '方向と場所',
+    titleEn: 'Directions & Places',
     kanji: ['前', '後', '外', '左', '右', '東', '西', '南', '北', '名']
   },
   {
     id: 7,
     title: '動物と天気',
+    titleEn: 'Animals & Weather',
     kanji: ['牛', '馬', '魚', '貝', '雨', '天', '気', '車', '門', '午']
   },
   {
     id: 8,
     title: '形容詞',
+    titleEn: 'Adjectives',
     kanji: ['大', '小', '高', '安', '新', '古', '長', '多', '少', '早']
   },
   {
     id: 9,
     title: '基本動詞',
+    titleEn: 'Basic Verbs',
     kanji: ['行', '来', '食', '見', '入', '出', '立', '書', '言', '飲']
   },
   {
     id: 10,
     title: '日常動詞',
+    titleEn: 'Daily Verbs',
     kanji: ['話', '読', '語', '聞', '間', '買', '休', '時', '週', '道']
   },
   {
     id: 11,
     title: 'まとめ',
+    titleEn: 'Review & More',
     kanji: ['今', '会', '社', '店', '駅', '国', '白', '花', '空', '電']
   }
 ];
@@ -991,7 +1003,7 @@ export const kanjiDatabase: Record<string, KanjiData> = {
     examples: [
       { word: '来ます', reading: 'きます', translation: 'to come' },
       { word: '来年', reading: 'らいねん', translation: 'next year' },
-      { word: '来週', reading: 'らいしゅう', translation: 'next week' }
+      { word: '来週', reading: '��いしゅう', translation: 'next week' }
     ]
   },
   '食': {

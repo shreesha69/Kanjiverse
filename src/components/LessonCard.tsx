@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
-
+import { motion } from "framer-motion";
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 
 interface LessonCardProps {
   lessonNumber: number;
   title: string;
+  titleEn: string;
   kanjiPreview: string[];
   learnedCount: number;
   totalCount: number;
@@ -15,6 +15,7 @@ interface LessonCardProps {
 export function LessonCard({
   lessonNumber,
   title,
+  titleEn,
   kanjiPreview,
   learnedCount,
   totalCount,
@@ -32,7 +33,8 @@ export function LessonCard({
           <div className="inline-block bg-[#f9c5d1]/20 text-[#f9c5d1] px-3 py-1 rounded-full text-sm mb-2">
             Lesson {lessonNumber}
           </div>
-          <h3 className="text-lg mb-2">{title}</h3>
+          <h3 className="text-lg mb-1">{titleEn}</h3>
+          <p className="text-sm text-gray-500">{title}</p>
         </div>
       </div>
 

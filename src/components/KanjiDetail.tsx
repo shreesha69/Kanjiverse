@@ -102,7 +102,7 @@ export function KanjiDetail({
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🎉</span>
                 <div>
-                  <div className="font-semibold">Lesson {currentLesson.id}</div>
+                  <div className="font-semibold">Lesson {currentLesson.id}: {currentLesson.titleEn}</div>
                   <div className="text-sm opacity-90">{currentLesson.title}</div>
                 </div>
               </div>

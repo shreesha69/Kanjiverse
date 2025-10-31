@@ -22,7 +22,7 @@ export function Progress({ learnedKanji, onNavigate }: ProgressProps) {
         <ImageWithFallback
           src="https://images.unsplash.com/photo-1758971180731-a50a122f94c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx6ZW4lMjBnYXJkZW4lMjBtaW5pbWFsaXN0fGVufDF8fHx8MTc2MTY3MjgwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
           alt="Zen Garden"
-          className="w-full h-full object-cover opacity-5"
+          className="w-full h-full object-cover opacity-20"
         />
       </div>
       <div className="max-w-5xl mx-auto relative z-10">
@@ -147,7 +147,10 @@ export function Progress({ learnedKanji, onNavigate }: ProgressProps) {
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-center mb-1">
-                        <span>{lesson.title}</span>
+                        <div>
+                          <div>{lesson.titleEn}</div>
+                          <div className="text-xs text-gray-500">{lesson.title}</div>
+                        </div>
                         <span className="text-sm text-gray-600">
                           {lessonLearnedCount}/{lesson.kanji.length}
                         </span>
