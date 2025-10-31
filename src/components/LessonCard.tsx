@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { Progress } from './ui/progress';
 
@@ -63,7 +63,7 @@ export function LessonCard({
       {/* View Lesson Button */}
       <Button
         onClick={onViewLesson}
-        className="w-full bg-[#f9c5d1] hover:bg-[#f9c5d1]/90 text-white rounded-full"
+        className="w-full bg-[#f9c5d1] hover:bg-[#f7b3c4] text-gray-800 rounded-full"
       >
         View Lesson
       </Button>

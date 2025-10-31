@@ -69,7 +69,8 @@ export function Home({ onNavigate }: HomeProps) {
             alt="Mount Fuji"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/40 to-white/80"></div>
+          {/* Slightly lightened gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/90"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -89,14 +90,14 @@ export function Home({ onNavigate }: HomeProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button
                 onClick={() => onNavigate('lessons')}
-                className="bg-[#e91e63] hover:bg-[#c2185b] text-white px-8 py-6 rounded-full shadow-lg"
+                className="bg-[#f9c5d1] hover:bg-[#f7b3c4] text-gray-800 px-8 py-6 rounded-full shadow-lg"
               >
                 Start Learning
               </Button>
               <Button
                 onClick={() => onNavigate('progress')}
                 variant="outline"
-                className="border-2 border-[#e91e63] text-[#e91e63] hover:bg-[#e91e63] hover:text-white px-8 py-6 rounded-full shadow-md"
+                className="border-2 border-[#b6e2d3] text-gray-700 hover:bg-[#b6e2d3] hover:text-gray-800 px-8 py-6 rounded-full shadow-md"
               >
                 Continue Lesson
               </Button>
@@ -107,10 +108,10 @@ export function Home({ onNavigate }: HomeProps) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="inline-block bg-white px-8 py-4 rounded-2xl shadow-md border border-[#e91e63]/30"
+              className="inline-block bg-white px-8 py-4 rounded-2xl shadow-md border border-[#f9c5d1]/40"
             >
-              <p className="text-gray-700">
-                <span className="text-[#e91e63]">JLPT N5</span> — {daysLeft} Days Left! 🗓️
+              <p className="text-gray-800">
+                <span className="text-[#f9c5d1]">JLPT N5</span> — {daysLeft} Days Left! 🗓️
               </p>
             </motion.div>
           </motion.div>
@@ -146,9 +147,9 @@ export function Home({ onNavigate }: HomeProps) {
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1649227770395-610fe3d1e3ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGVycnklMjBibG9zc29tJTIwc2FrdXJhfGVufDF8fHx8MTc2MTY3MjgwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
             alt="Cherry Blossoms"
-            className="w-full h-full object-cover opacity-25"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-[#fce4ec]/30 to-white/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-[#fce4ec]/40 to-white/85"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -180,7 +181,7 @@ export function Home({ onNavigate }: HomeProps) {
             </div>
             <Button
               onClick={() => onNavigate('lessons')}
-              className="bg-[#00897b] hover:bg-[#00695c] text-white px-8 py-6 rounded-full shadow-lg"
+              className="bg-[#b6e2d3] hover:bg-[#a0d4c3] text-gray-800 px-8 py-6 rounded-full shadow-lg"
             >
               View All Lessons
             </Button>
