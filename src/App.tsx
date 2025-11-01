@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Home } from './components/Home';
 import { Lessons } from './components/Lessons';
 import { KanjiDetail } from './components/KanjiDetail';
@@ -16,30 +16,39 @@ export default function App() {
   const [learnedKanji, setLearnedKanji] = useState<Set<string>>(new Set());
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
+
+  useEffect(() => {
+
+    window.history.pushState({ page: currentPage }, '', `#${currentPage}`);
+  }, [currentPage]);
+
+  // Listen for browser back/forward button
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const page = (event.state && event.state.page) || 'home';
+      setCurrentPage(page);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
-    // ✅ Smooth scroll reset (helps mobile browsers not "pop out")
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   };
 
   const handleViewKanji = (kanji: string, lessonId?: number) => {
     setSelectedKanji(kanji);
-    if (lessonId) {
-      setSelectedLessonId(lessonId);
-    }
+    if (lessonId) setSelectedLessonId(lessonId);
     setCurrentPage('kanji-detail');
-    // ✅ Reset scroll when viewing new kanji
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   };
 
   const handleMarkAsLearned = (kanji: string) => {
     setLearnedKanji(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(kanji)) {
-        newSet.delete(kanji);
-      } else {
-        newSet.add(kanji);
-      }
+      newSet.has(kanji) ? newSet.delete(kanji) : newSet.add(kanji);
       return newSet;
     });
   };
@@ -47,11 +56,7 @@ export default function App() {
   const handleToggleFavorite = (kanji: string) => {
     setFavorites(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(kanji)) {
-        newSet.delete(kanji);
-      } else {
-        newSet.add(kanji);
-      }
+      newSet.has(kanji) ? newSet.delete(kanji) : newSet.add(kanji);
       return newSet;
     });
   };
@@ -59,7 +64,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
-      
+
       <main className="flex-1">
         {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
 
