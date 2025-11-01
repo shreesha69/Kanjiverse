@@ -1,6 +1,6 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // ✅ FIXED — use framer-motion, not motion/react
+import { motion, AnimatePresence } from 'framer-motion'; 
 
 type Page = 'home' | 'lessons' | 'kanji-detail' | 'progress' | 'quiz';
 
