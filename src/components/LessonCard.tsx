@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { Button } from './ui/button';
+import { AnimatedButton } from './AnimatedButton';
 import { Progress } from './ui/progress';
 
 interface LessonCardProps {
@@ -61,12 +62,12 @@ export function LessonCard({
       </div>
 
       {/* View Lesson Button */}
-      <Button
+      <AnimatedButton
         onClick={onViewLesson}
         className="w-full bg-[#f9c5d1] hover:bg-[#f7b3c4] text-gray-800 rounded-full"
       >
         View Lesson
-      </Button>
+      </AnimatedButton>
     </motion.div>
   );
 }

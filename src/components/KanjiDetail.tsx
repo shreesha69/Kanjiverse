@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Check, BookOpen, ArrowLeft, ArrowRight, List } from 'lucide-react';
 import { Button } from './ui/button';
+import { AnimatedButton } from './AnimatedButton';
 import { kanjiDatabase, lessons } from '../data/kanjiData';
 import { useEffect, useState } from 'react';
 
@@ -102,9 +103,7 @@ export function KanjiDetail({
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🎉</span>
                 <div>
-                  <div className="font-semibold">
-                    Lesson {currentLesson.id}: {currentLesson.titleEn}
-                  </div>
+                  <div className="font-semibold">Lesson {currentLesson.id}: {currentLesson.titleEn}</div>
                   <div className="text-sm opacity-90">{currentLesson.title}</div>
                 </div>
               </div>
@@ -134,7 +133,7 @@ export function KanjiDetail({
                 <ArrowLeft size={20} className="mr-1" />
                 Previous
               </Button>
-
+              
               <div className="text-sm text-gray-600 px-3">
                 {currentIndex + 1} / {currentLesson.kanji.length}
               </div>
@@ -178,7 +177,7 @@ export function KanjiDetail({
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <Button
+          <AnimatedButton
             onClick={() => onToggleFavorite(kanji)}
             variant={isFavorite ? 'default' : 'outline'}
             className={`flex-1 rounded-full ${
@@ -189,8 +188,8 @@ export function KanjiDetail({
           >
             <Star className="mr-2" size={20} fill={isFavorite ? 'white' : 'none'} />
             {isFavorite ? 'Favorited' : 'Add to Favorites'}
-          </Button>
-          <Button
+          </AnimatedButton>
+          <AnimatedButton
             onClick={() => onMarkAsLearned(kanji)}
             variant={isLearned ? 'default' : 'outline'}
             className={`flex-1 rounded-full ${
@@ -201,7 +200,7 @@ export function KanjiDetail({
           >
             <Check className="mr-2" size={20} />
             {isLearned ? 'Learned!' : 'Mark as Learned'}
-          </Button>
+          </AnimatedButton>
         </div>
 
         {/* Readings Section */}

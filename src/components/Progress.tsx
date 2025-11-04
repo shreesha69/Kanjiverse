@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { TrendingUp, Award, Target } from 'lucide-react';
 import { Button } from './ui/button';
+import { AnimatedButton } from './AnimatedButton';
 import { Progress as ProgressBar } from './ui/progress';
 import { lessons, allKanji } from '../data/kanjiData';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { CongratulationsModal } from './CongratulationsModal';
+import { useState, useEffect } from 'react';
 
 interface ProgressProps {
   learnedKanji: Set<string>;
@@ -14,6 +17,22 @@ export function Progress({ learnedKanji, onNavigate }: ProgressProps) {
   const totalKanji = allKanji.length;
   const learnedCount = learnedKanji.size;
   const progressPercentage = (learnedCount / totalKanji) * 100;
+  const isAllComplete = learnedCount === totalKanji;
+
+  const [showCongratulations, setShowCongratulations] = useState(false);
+  const [hasShownCongratulations, setHasShownCongratulations] = useState(false);
+
+  useEffect(() => {
+    // Show congratulations modal when all kanji are learned (but only once per session)
+    if (isAllComplete && !hasShownCongratulations) {
+      // Delay showing the modal for a nice reveal
+      const timer = setTimeout(() => {
+        setShowCongratulations(true);
+        setHasShownCongratulations(true);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [isAllComplete, hasShownCongratulations]);
 
   return (
     <div className="relative py-12 px-4 min-h-screen">
@@ -38,6 +57,15 @@ export function Progress({ learnedKanji, onNavigate }: ProgressProps) {
           <p className="text-xl text-gray-600">
             Keep climbing towards JLPT N5 mastery!
           </p>
+          {/* Demo Button - for testing the congratulations modal */}
+          {!isAllComplete && (
+            <button
+              onClick={() => setShowCongratulations(true)}
+              className="mt-4 text-xs text-gray-400 hover:text-gray-600 underline"
+            >
+              Preview Completion Modal
+            </button>
+          )}
         </motion.div>
 
         {/* Main Progress Card */}
@@ -166,14 +194,24 @@ export function Progress({ learnedKanji, onNavigate }: ProgressProps) {
 
         {/* Action Button */}
         <div className="text-center">
-          <Button 
+          <AnimatedButton 
             onClick={() => onNavigate?.('lessons')}
-            className="bg-[#f9c5d1] hover:bg-[#f9c5d1]/90 text-white px-8 py-6 rounded-full"
+            className="bg-[#f7b3c4] hover:bg-[#f59bb0] text-gray-800 px-8 py-6 rounded-full shadow-lg"
           >
             Continue Learning
-          </Button>
+          </AnimatedButton>
         </div>
       </div>
+
+      {/* Congratulations Modal */}
+      <CongratulationsModal 
+        isOpen={showCongratulations}
+        onClose={() => setShowCongratulations(false)}
+        onStartReview={() => {
+          setShowCongratulations(false);
+          onNavigate?.('quiz');
+        }}
+      />
     </div>
   );
 }

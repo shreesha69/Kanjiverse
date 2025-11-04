@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+
 import { BookOpen, TrendingUp, Award } from 'lucide-react';
 import { Button } from './ui/button';
+import { AnimatedButton } from './AnimatedButton';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 type Page = 'lessons' | 'progress' | 'quiz';
@@ -69,8 +71,7 @@ export function Home({ onNavigate }: HomeProps) {
             alt="Mount Fuji"
             className="w-full h-full object-cover"
           />
-          {/* Slightly lightened gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/40 to-white/80"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -88,19 +89,19 @@ export function Home({ onNavigate }: HomeProps) {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button
+              <AnimatedButton
                 onClick={() => onNavigate('lessons')}
                 className="bg-[#f9c5d1] hover:bg-[#f7b3c4] text-gray-800 px-8 py-6 rounded-full shadow-lg"
               >
                 Start Learning
-              </Button>
-              <Button
+              </AnimatedButton>
+              <AnimatedButton
                 onClick={() => onNavigate('progress')}
                 variant="outline"
                 className="border-2 border-[#b6e2d3] text-gray-700 hover:bg-[#b6e2d3] hover:text-gray-800 px-8 py-6 rounded-full shadow-md"
               >
                 Continue Lesson
-              </Button>
+              </AnimatedButton>
             </div>
 
             {/* Countdown */}
@@ -110,7 +111,7 @@ export function Home({ onNavigate }: HomeProps) {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="inline-block bg-white px-8 py-4 rounded-2xl shadow-md border border-[#f9c5d1]/40"
             >
-              <p className="text-gray-800">
+              <p className="text-gray-700">
                 <span className="text-[#f9c5d1]">JLPT N5</span> — {daysLeft} Days Left! 🗓️
               </p>
             </motion.div>
@@ -147,9 +148,9 @@ export function Home({ onNavigate }: HomeProps) {
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1649227770395-610fe3d1e3ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGVycnklMjBibG9zc29tJTIwc2FrdXJhfGVufDF8fHx8MTc2MTY3MjgwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
             alt="Cherry Blossoms"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-25"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-[#fce4ec]/40 to-white/85"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-[#fce4ec]/30 to-white/70"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -179,12 +180,12 @@ export function Home({ onNavigate }: HomeProps) {
                 月
               </motion.span>
             </div>
-            <Button
+            <AnimatedButton
               onClick={() => onNavigate('lessons')}
               className="bg-[#b6e2d3] hover:bg-[#a0d4c3] text-gray-800 px-8 py-6 rounded-full shadow-lg"
             >
               View All Lessons
-            </Button>
+            </AnimatedButton>
           </motion.div>
         </div>
       </section>
