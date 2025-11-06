@@ -1,8 +1,8 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; 
+import { motion, AnimatePresence } from 'framer-motion';
 
-type Page = 'home' | 'lessons' | 'kanji-detail' | 'progress' | 'quiz';
+type Page = 'home' | 'lessons' | 'kanji-detail' | 'progress' | 'quiz' | 'signup' | 'login';
 
 interface NavigationProps {
   currentPage: Page;
@@ -29,11 +29,11 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
             className="flex items-center gap-2 cursor-pointer"
           >
             <span className="text-2xl">🌸</span>
-            <span className="text-xl">Kanjiverse</span>
+            <span className="text-xl">Kanji Ladder</span>
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navItems.map(item => (
               <button
                 key={item.id}
@@ -47,6 +47,22 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
                 {item.label}
               </button>
             ))}
+            
+            {/* Auth Buttons */}
+            <div className="flex items-center gap-3 ml-2">
+              <button
+                onClick={() => onNavigate('login')}
+                className="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => onNavigate('signup')}
+                className="px-4 py-2 rounded-full bg-[#f9c5d1] hover:bg-[#f7b3c4] text-gray-800 transition-colors shadow-md"
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -85,6 +101,28 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
                   {item.label}
                 </button>
               ))}
+              
+              {/* Auth Buttons - Mobile */}
+              <div className="pt-3 border-t border-gray-100 space-y-2">
+                <button
+                  onClick={() => {
+                    onNavigate('login');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={() => {
+                    onNavigate('signup');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 rounded-lg bg-[#f9c5d1] hover:bg-[#f7b3c4] text-gray-800 transition-colors"
+                >
+                  Sign Up
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

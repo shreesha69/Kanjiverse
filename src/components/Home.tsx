@@ -67,11 +67,13 @@ export function Home({ onNavigate }: HomeProps) {
         {/* Background Image - Mt. Fuji */}
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb3VudCUyMGZ1amklMjBqYXBhbnxlbnwxfHx8fDE3NjE4NjQzMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="https://image2url.com/images/1762453605075-b868811d-417d-4940-a8b8-fd4634d6618b.png"
             alt="Mount Fuji"
-            className="w-full h-full object-cover"
+            // Slightly dim the image itself so the overlay has more effect
+            className="w-full h-full object-cover opacity-70"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/40 to-white/80"></div>
+          {/* Stronger white gradient overlay to guarantee readable text */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/95"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -80,12 +82,14 @@ export function Home({ onNavigate }: HomeProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl mb-6 drop-shadow-md">
               Climb step-by-step to master JLPT N5 Kanji
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Your friendly companion for learning essential Japanese characters
-            </p>
+          <p className="text-xl text-black font-semibold mb-8 drop-shadow-sm">
+  Your friendly companion for learning essential Japanese characters
+</p>
+
+
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -148,7 +152,7 @@ export function Home({ onNavigate }: HomeProps) {
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1649227770395-610fe3d1e3ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGVycnklMjBibG9zc29tJTIwc2FrdXJhfGVufDF8fHx8MTc2MTY3MjgwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
             alt="Cherry Blossoms"
-            className="w-full h-full object-cover opacity-25"
+            className="w-full h-full object-cover opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-[#fce4ec]/30 to-white/70"></div>
         </div>
@@ -160,10 +164,10 @@ export function Home({ onNavigate }: HomeProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl mb-6">
+            <h2 className="text-3xl sm:text-4xl mb-6 drop-shadow-md">
               Your Path to Kanji Mastery
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-600 mb-8 drop-shadow-sm">
               Based on Minna no Nihongo textbook series, designed for complete beginners
             </p>
             <div className="flex justify-center gap-6 text-6xl mb-8">

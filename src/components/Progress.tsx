@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import { TrendingUp, Award, Target } from 'lucide-react';
 import { Button } from './ui/button';
 import { AnimatedButton } from './AnimatedButton';

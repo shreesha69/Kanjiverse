@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, ButtonHTMLAttributes } from 'react'; 
 
-interface AnimatedButtonProps {
+interface AnimatedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { 
   children: ReactNode;
   onClick?: () => void;
   variant?: 'default' | 'outline';
@@ -14,7 +14,9 @@ export function AnimatedButton({
   children, 
   onClick, 
   variant = 'default',
-  className = '' 
+  className = '',
+  type = 'button', // ✅ added this line (default button type)
+  ...props // ✅ added to forward extra props
 }: AnimatedButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -25,6 +27,8 @@ export function AnimatedButton({
       className={`relative overflow-hidden group ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      type={type} // ✅ ensure the type prop is passed down
+      {...props}  // ✅ forward any additional props (like disabled)
     >
       <span className="relative z-10 flex items-center justify-center gap-2">
         {children}

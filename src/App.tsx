@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Home } from './components/Home';
 import { Lessons } from './components/Lessons';
 import { KanjiDetail } from './components/KanjiDetail';
 import { Progress } from './components/Progress';
 import { Quiz } from './components/Quiz';
+import { SignUp } from './components/SignUp';
+import { Login } from './components/Login';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 
-type Page = 'home' | 'lessons' | 'kanji-detail' | 'progress' | 'quiz';
+type Page = 'home' | 'lessons' | 'kanji-detail' | 'progress' | 'quiz' | 'signup' | 'login';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -16,39 +18,27 @@ export default function App() {
   const [learnedKanji, setLearnedKanji] = useState<Set<string>>(new Set());
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-
-  useEffect(() => {
-
-    window.history.pushState({ page: currentPage }, '', `#${currentPage}`);
-  }, [currentPage]);
-
-  // Listen for browser back/forward button
-  useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
-      const page = (event.state && event.state.page) || 'home';
-      setCurrentPage(page);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
-    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+    window.scrollTo(0, 0);
   };
 
   const handleViewKanji = (kanji: string, lessonId?: number) => {
     setSelectedKanji(kanji);
-    if (lessonId) setSelectedLessonId(lessonId);
+    if (lessonId) {
+      setSelectedLessonId(lessonId);
+    }
     setCurrentPage('kanji-detail');
-    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
   };
 
   const handleMarkAsLearned = (kanji: string) => {
     setLearnedKanji(prev => {
       const newSet = new Set(prev);
-      newSet.has(kanji) ? newSet.delete(kanji) : newSet.add(kanji);
+      if (newSet.has(kanji)) {
+        newSet.delete(kanji);
+      } else {
+        newSet.add(kanji);
+      }
       return newSet;
     });
   };
@@ -56,7 +46,11 @@ export default function App() {
   const handleToggleFavorite = (kanji: string) => {
     setFavorites(prev => {
       const newSet = new Set(prev);
-      newSet.has(kanji) ? newSet.delete(kanji) : newSet.add(kanji);
+      if (newSet.has(kanji)) {
+        newSet.delete(kanji);
+      } else {
+        newSet.add(kanji);
+      }
       return newSet;
     });
   };
@@ -64,17 +58,10 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
-
+      
       <main className="flex-1">
         {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
-
-        {currentPage === 'lessons' && (
-          <Lessons 
-            onViewKanji={handleViewKanji} 
-            learnedKanji={learnedKanji} 
-          />
-        )}
-
+        {currentPage === 'lessons' && <Lessons onViewKanji={handleViewKanji} learnedKanji={learnedKanji} />}
         {currentPage === 'kanji-detail' && selectedKanji && (
           <KanjiDetail 
             kanji={selectedKanji}
@@ -87,20 +74,10 @@ export default function App() {
             onBackToLessons={() => handleNavigate('lessons')}
           />
         )}
-
-        {currentPage === 'progress' && (
-          <Progress 
-            learnedKanji={learnedKanji} 
-            onNavigate={handleNavigate} 
-          />
-        )}
-
-        {currentPage === 'quiz' && (
-          <Quiz 
-            learnedKanji={learnedKanji} 
-            onMarkAsLearned={handleMarkAsLearned} 
-          />
-        )}
+        {currentPage === 'progress' && <Progress learnedKanji={learnedKanji} onNavigate={handleNavigate} />}
+        {currentPage === 'quiz' && <Quiz learnedKanji={learnedKanji} onMarkAsLearned={handleMarkAsLearned} />}
+        {currentPage === 'signup' && <SignUp onNavigate={handleNavigate} />}
+        {currentPage === 'login' && <Login onNavigate={handleNavigate} />}
       </main>
 
       <Footer onNavigate={handleNavigate} />
